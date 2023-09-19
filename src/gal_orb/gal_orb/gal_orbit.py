@@ -1,0 +1,90 @@
+import rclpy
+from rclpy.node import Node
+
+import numpy as np
+import pandas as pd
+from std_msgs.msg import Float64MultiArray
+from gal_orb.GalOrb_bar import gal_orb
+
+class gal_orbit(Node):
+
+    def __init__(self):
+        super().__init__('gal_orbit')
+
+        self.publish = self.create_publisher(Float64MultiArray , '/gal_orbit', 10)
+
+        self.declare_parameter('rh', 0.0)
+        self.declare_parameter('lon', 0.0)
+        self.declare_parameter('lat', 0.0)
+        self.declare_parameter('vr', 0.0)
+        self.declare_parameter('pml', 0.0)
+        self.declare_parameter('pmb', 0.0)
+        self.declare_parameter('t0', 0.0)
+        self.declare_parameter('tf', 0.0)
+        self.declare_parameter('M_disc', 100.0)
+        self.declare_parameter('M_sph', 30.0)
+        self.declare_parameter('reverse', 'False')
+
+        rh = self.get_parameter('rh').get_parameter_value().double_value
+        lon = self.get_parameter('lon').get_parameter_value().double_value
+        lat = self.get_parameter('lat').get_parameter_value().double_value
+        vr = self.get_parameter('vr').get_parameter_value().double_value
+        pml = self.get_parameter('pml').get_parameter_value().double_value
+        pmb = self.get_parameter('pmb').get_parameter_value().double_value
+        t0 = self.get_parameter('t0').get_parameter_value().double_value
+        tf = self.get_parameter('tf').get_parameter_value().double_value
+        M_disc = self.get_parameter('M_disc').get_parameter_value().double_value
+        M_sph = self.get_parameter('M_sph').get_parameter_value().double_value
+        reverse = self.get_parameter('reverse').get_parameter_value().string_value
+        if reverse == 'True':
+            reverse_bool = True
+        else:
+            reverse_bool = False
+        
+        self.get_logger().info(f"Starting gal_orbit")
+
+        F = gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
+                    reverse = reverse_bool, plot = False, output = False)
+        if len(F) == 0:
+            self.get_logger().info(f"there is no data in the output")
+
+        self.dataframe = F
+        self.data_length = len(F)
+        self.all_columns = ['t', 'R', 'Vr', 'fi', 'Vfi', 'z', 'Vz', 'E', 'C', 'xg', 'yg']
+
+        self.publish_msg = Float64MultiArray()
+        self.float_arrays = F.to_numpy()
+        
+        #Defining inputs
+        self.declare_parameter('publish_freq', 10.0)   
+
+        # Defining encounter for publisher
+        self.i = 0
+
+        timer_period = 1/self.get_parameter('publish_freq').get_parameter_value().double_value  # frequency of publishing
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        
+    def timer_callback(self):
+
+        self.publish_msg.data = [float(self.float_arrays[self.i][j]) for j in range(len(self.float_arrays[0]))]
+
+        self.publish.publish(self.publish_msg)
+
+        self.get_logger().info(f"Publishing via self.pos_GT_pub = {self.publish_msg.data}")
+
+        self.i += 1
+        if self.i==len(self.data_length):
+            self.get_logger().info('All data published successfully')
+            exit()
+
+        
+def main(args=None):
+    rclpy.init(args=args)
+    dynamics = gal_orbit()
+    rclpy.spin(dynamics)
+    dynamics.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

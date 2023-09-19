@@ -1,0 +1,14 @@
+gal_orb:
+  ros__parameters:
+    publish_freq: 10.0
+    rh: 0.0
+    lon: 0.0
+    lat: 0.0
+    vr: 0.0
+    pml: 0.0
+    pmb: 0.0
+    t0: 0.0
+    tf: 0.0
+    M_disc: 100.0
+    M_sph: 30.0
+    reverse: 'False'
