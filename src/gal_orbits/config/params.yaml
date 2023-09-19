@@ -1,4 +1,4 @@
-gal_orb:
+gal_orbits:
   ros__parameters:
     publish_freq: 10.0
     rh: 0.0
@@ -8,7 +8,7 @@ gal_orb:
     pml: 0.0
     pmb: 0.0
     t0: 0.0
-    tf: 0.0
+    tf: 10.0
     M_disc: 100.0
     M_sph: 30.0
     reverse: 'False'

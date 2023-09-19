@@ -4,14 +4,14 @@ from rclpy.node import Node
 import numpy as np
 import pandas as pd
 from std_msgs.msg import Float64MultiArray
-from gal_orb.GalOrb_bar import gal_orb
+import gal_orb.GalOrb_bar as gal
 
-class gal_orbit(Node):
+class gal_orbits(Node):
 
     def __init__(self):
-        super().__init__('gal_orbit')
+        super().__init__('gal_orbits')
 
-        self.publish = self.create_publisher(Float64MultiArray , '/gal_orbit', 10)
+        self.publish = self.create_publisher(Float64MultiArray , '/gal_orbits', 10)
 
         self.declare_parameter('rh', 0.0)
         self.declare_parameter('lon', 0.0)
@@ -41,14 +41,13 @@ class gal_orbit(Node):
         else:
             reverse_bool = False
         
-        self.get_logger().info(f"Starting gal_orbit")
+        self.get_logger().info(f"Starting gal_orbits")
 
-        F = gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
+        F = gal.gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
                     reverse = reverse_bool, plot = False, output = False)
         if len(F) == 0:
             self.get_logger().info(f"there is no data in the output")
 
-        self.dataframe = F
         self.data_length = len(F)
         self.all_columns = ['t', 'R', 'Vr', 'fi', 'Vfi', 'z', 'Vz', 'E', 'C', 'xg', 'yg']
 
@@ -73,14 +72,14 @@ class gal_orbit(Node):
         self.get_logger().info(f"Publishing via self.pos_GT_pub = {self.publish_msg.data}")
 
         self.i += 1
-        if self.i==len(self.data_length):
+        if self.i==self.data_length:
             self.get_logger().info('All data published successfully')
             exit()
 
         
 def main(args=None):
     rclpy.init(args=args)
-    dynamics = gal_orbit()
+    dynamics = gal_orbits()
     rclpy.spin(dynamics)
     dynamics.destroy_node()
     rclpy.shutdown()

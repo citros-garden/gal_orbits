@@ -2,7 +2,7 @@ from setuptools import setup
 from glob import glob
 import os
 
-package_name = 'gal_orb'
+package_name = 'gal_orbits'
 
 setup(
     name=package_name,
@@ -20,12 +20,12 @@ setup(
     zip_safe=True,
     maintainer='ros',
     maintainer_email='',
-    description='Simple gal_orb',
+    description='Simple gal_orbits',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'gal_orb = gal_orb.gal_orb:main'
+            'gal_orbits = gal_orbits.gal_orbits:main'
         ],
     },
 )

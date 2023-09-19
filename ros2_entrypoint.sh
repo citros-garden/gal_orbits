@@ -2,6 +2,6 @@
 set -e
 
 source /opt/ros/humble/setup.bash
-source /workspaces/barvaz_test/install/setup.bash
+source /workspaces/gal_orbits/install/setup.bash
 
 exec "$@"

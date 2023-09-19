@@ -15,20 +15,20 @@ class bcolors:
 
 def generate_launch_description():
     ld = LaunchDescription()
-    gal_orb_config = os.path.join(
-        get_package_share_directory('gal_orb'),
+    gal_orbits_config = os.path.join(
+        get_package_share_directory('gal_orbits'),
         'config',
         'params.yaml'
         )
-    gal_orb=Node(
-        package = 'gal_orb',
-        name = 'gal_orb',
-        executable = 'gal_orb',
-        parameters = [gal_orb_config]
+    gal_orbits=Node(
+        package = 'gal_orbits',
+        name = 'gal_orbits',
+        executable = 'gal_orbits',
+        parameters = [gal_orbits_config]
     )
 
     sys_shut_down = RegisterEventHandler(OnProcessExit(
-    target_action=gal_orb,
+    target_action=gal_orbits,
     on_exit=[
                 LogInfo(msg=(f'{bcolors.OKGREEN}The Scenario has ended!{bcolors.ENDC}')),
                 EmitEvent(event=Shutdown(
@@ -38,5 +38,5 @@ def generate_launch_description():
 
     bridge_dir = get_package_share_directory('rosbridge_server')
     bridge_launch =  IncludeLaunchDescription(launch_description_sources.FrontendLaunchDescriptionSource(bridge_dir + '/launch/rosbridge_websocket_launch.xml')) 
-    ld = LaunchDescription ([bridge_launch, gal_orb, sys_shut_down])
+    ld = LaunchDescription ([bridge_launch, gal_orbits, sys_shut_down])
     return ld

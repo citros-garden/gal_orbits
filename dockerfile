@@ -38,12 +38,12 @@ RUN sudo apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* 
 RUN  pip install mcap-ros2-support gdown pandas
 
-WORKDIR /workspaces/gal_orb
+WORKDIR /workspaces/gal_orbits
 COPY . .
 
 RUN pip install citros python-decouple requests gdown pandas numpy==1.21.2 git+https://github.com/ChemelAA/GalOrb-Package.git
 
 RUN chmod +x ros2_entrypoint.sh
-ENTRYPOINT ["/workspaces/gal_orb/ros2_entrypoint.sh"]
+ENTRYPOINT ["/workspaces/gal_orbits/ros2_entrypoint.sh"]
 
 CMD ["bash"]
