@@ -24,6 +24,8 @@ class gal_orbits(Node):
         self.declare_parameter('M_disc', 100.0)
         self.declare_parameter('M_sph', 30.0)
         self.declare_parameter('reverse', 'False')
+        self.declare_parameter('rtol', 1e-9)
+        self.declare_parameter('atol', 1e-9)
 
         rh = self.get_parameter('rh').get_parameter_value().double_value
         lon = self.get_parameter('lon').get_parameter_value().double_value
@@ -36,6 +38,8 @@ class gal_orbits(Node):
         M_disc = self.get_parameter('M_disc').get_parameter_value().double_value
         M_sph = self.get_parameter('M_sph').get_parameter_value().double_value
         reverse = self.get_parameter('reverse').get_parameter_value().string_value
+        rtol = self.get_parameter('rtol').get_parameter_value().double_value
+        atol = self.get_parameter('atol').get_parameter_value().double_value
         if reverse == 'True':
             reverse_bool = True
         else:
@@ -44,7 +48,7 @@ class gal_orbits(Node):
         self.get_logger().info(f"Starting gal_orbits")
 
         F = gal.gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
-                    reverse = reverse_bool, rtol=1e-9, atol=1e-9, plot = False, output = False)
+                    reverse = reverse_bool, rtol=rtol, atol=atol, plot = False, output = False)
         if len(F) == 0:
             self.get_logger().info(f"there is no data in the output")
 
