@@ -12,3 +12,5 @@ gal_orbits:
     M_disc: 100.0
     M_sph: 30.0
     reverse: 'False'
+    rtol: 1e-9
+    atol: 1e-9
