@@ -44,7 +44,7 @@ class gal_orbits(Node):
         self.get_logger().info(f"Starting gal_orbits")
 
         F = gal.gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
-                    reverse = reverse_bool, plot = False, output = False)
+                    reverse = reverse_bool, rtol=1e-9, atol=1e-9, plot = False, output = False)
         if len(F) == 0:
             self.get_logger().info(f"there is no data in the output")
 
