@@ -41,7 +41,7 @@ RUN  pip install mcap-ros2-support gdown pandas
 WORKDIR /workspaces/gal_orbits
 COPY . .
 
-RUN pip install citros python-decouple requests gdown pandas numpy==1.21.2 git+https://github.com/ChemelAA/GalOrb-Package.git
+RUN pip install citros python-decouple requests gdown pandas numpy==1.21.2 git+https://github.com/ChemelAA/GalOrb-Package.git@main
 
 RUN chmod +x ros2_entrypoint.sh
 ENTRYPOINT ["/workspaces/gal_orbits/ros2_entrypoint.sh"]
