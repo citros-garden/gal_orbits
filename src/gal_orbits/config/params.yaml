@@ -5,8 +5,8 @@ gal_orbits:
     lon: 0.0
     lat: 0.0
     vr: 0.0
-    pml: 0.0
-    pmb: 0.0
+    pmra: 0.0
+    pmde: 0.0
     t0: 0.0
     tf: 10.0
     M_disc: 100.0
