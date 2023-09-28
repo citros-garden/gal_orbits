@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 from std_msgs.msg import Float64MultiArray
 import gal_orb.GalOrb_bar as gal
+from astropy.coordinates import SkyCoord, ICRS, Galactic
+import astropy.units as u
 
 class gal_orbits(Node):
 
@@ -17,8 +19,8 @@ class gal_orbits(Node):
         self.declare_parameter('lon', 0.0)
         self.declare_parameter('lat', 0.0)
         self.declare_parameter('vr', 0.0)
-        self.declare_parameter('pml', 0.0)
-        self.declare_parameter('pmb', 0.0)
+        self.declare_parameter('pmra', 0.0)
+        self.declare_parameter('pmde', 0.0)
         self.declare_parameter('t0', 0.0)
         self.declare_parameter('tf', 0.0)
         self.declare_parameter('M_disc', 100.0)
@@ -31,8 +33,8 @@ class gal_orbits(Node):
         lon = self.get_parameter('lon').get_parameter_value().double_value
         lat = self.get_parameter('lat').get_parameter_value().double_value
         vr = self.get_parameter('vr').get_parameter_value().double_value
-        pml = self.get_parameter('pml').get_parameter_value().double_value
-        pmb = self.get_parameter('pmb').get_parameter_value().double_value
+        pmra = self.get_parameter('pmra').get_parameter_value().double_value
+        pmde = self.get_parameter('pmde').get_parameter_value().double_value
         t0 = self.get_parameter('t0').get_parameter_value().double_value
         tf = self.get_parameter('tf').get_parameter_value().double_value
         M_disc = self.get_parameter('M_disc').get_parameter_value().double_value
@@ -44,7 +46,14 @@ class gal_orbits(Node):
             reverse_bool = True
         else:
             reverse_bool = False
-        
+
+        icrs_coords = Galactic(l=lon * u.deg, b=lat * u.deg).transform_to(ICRS())
+
+        sc = SkyCoord(icrs_coords.ra, icrs_coords.dec, pm_ra_cosdec=pmra*u.mas/u.yr, pm_dec=pmde*u.mas/u.yr)
+
+        pml = sc.galactic.pm_l_cosb.value
+        pmb = sc.galactic.pm_b.value
+
         self.get_logger().info(f"Starting gal_orbits")
 
         F = gal.gal_orb(rh, lon, lat, vr, pml, pmb, t0, tf, M_disc = M_disc, M_sph = M_sph, name = None,
