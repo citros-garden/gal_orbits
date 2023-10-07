@@ -8,9 +8,58 @@ For the calculations of the orbits, the Python package [GalOrb](https://github.c
 
 # CITROS Usage
 
+Please follow steps that are described in [Tutorial](https://citros.io/doc/blog/Cannon).
+
+Briefly, to clone project and run it in CITROS cloud, the following steps are required:
+
+- Clone github repository:
+```bash
+$ git clone git@github.com:citros-garden/cannon.git
+$ cd ~/gal_orbits
+```
+
+- Build the project:
+```bash
+$ colcon build
+$ source install/local_setup.bash
+```
+
+- Install CITROS:
+```bash
+$ pip install citros
+```
+
+- Log in:
+```bash
+$ citros login
+```
+
+- Set ssh key:
+```bash
+$ citros setup-ssh
+```
+
+- Initialization
+```bash
+$ citros init
+```
+
+- Build and push docker image
+```bash
+$ citros docker-build-push
+```
+
+- Set up parameters of the simulation:
+check the [parameters](#parameter-setups) that are required for the orbits calculations. 
+
+- Run in the cloud: set name of the batch, message and number of simulations, for example:
+```bash
+$ citros run -n "galactic orbits" -m "first run" -c 5
+```
+
 ## Parameter setups
 
-Parameters for the simulation are listed in the table:
+Parameters for the simulation are listed in the following:
 
 parameter | description
 |--|--
@@ -28,7 +77,7 @@ reverse| if 'True', set backward direction of time, by default, direction is for
 rtol| relative value of the error of the numerical integration scheme, affects the output number of messages
 atol| absolute value  of the error of the numerical integration scheme, affects the output number of messages
 
-Parameters are written listed in file [.citros/parameter_setups/default_param_setup.json](.citros/parameter_setups/default_param_setup.json). In case of the cluster **NGC 6316**:
+Parameters are listed in file [.citros/parameter_setups/default_param_setup.json](.citros/parameter_setups/default_param_setup.json). In case of the cluster **NGC 6316**:
 
 ```js
 {
