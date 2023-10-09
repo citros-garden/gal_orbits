@@ -4,6 +4,10 @@ The current repository is dedicated to demonstrating the application of the **ci
 
 Globular star clusters are gravitationally bound, dense and rich aggregations of stars, that can be found nearly in every galaxy, including our own Milky Way. In comparison with another type of star clusters, the open clusters, globular clusters are populated with older stars and can have up to millions of members.  Another notable difference is that they are not part of the disk component but belong to the halo. This means they can be located far from both the thin and thick disks of the Galaxy, which have thicknesses of about 300 pc and 2.6 kpc, respectively.
 
+![figNGC6316](NGC6316.png "NGC6316")
+
+*globular star cluster NGC 6316, Atlas Image [or Atlas Image mosaic] obtained as part of the Two Micron All Sky Survey (2MASS), a joint project of the University of Massachusetts and the Infrared Processing and Analysis Center/California Institute of Technology, funded by the National Aeronautics and Space Administration and the National Science Foundation*.
+
 For the calculations of the orbits, the Python package [GalOrb](https://github.com/ChemelAA/GalOrb-Package) was adopted. Details on this package, as well as parameters required for simulations, can be found in the article [Globular Clusters: Absolute Proper Motions and Galactic Orbits](https://link.springer.com/article/10.1134/S1990341318020049), [arXiv](https://arxiv.org/pdf/1804.07086.pdf).
 
 # CITROS Usage
@@ -54,7 +58,7 @@ check the [parameters](#parameter-setups) that are required for the orbits calcu
 
 - Run in the cloud: set name of the batch, message and number of simulations, for example:
 ```bash
-$ citros run -n "galactic orbits" -m "first run" -c 5
+$ citros run -n "galactic orbits" -m "first run" -c 5 -r
 ```
 
 ## Parameter setups
