@@ -8,7 +8,7 @@ These notebooks aim to demonstrate the capabilities of the **citros_data_analysi
 
 ## Batch format
 
-The batch is a table that always containes the following columns:
+The batch is a table that always contains the following columns:
 
 ||user\_id | sid | rid | time | topic | type| data |
 |--|--|--|--|--|--|--|--|
