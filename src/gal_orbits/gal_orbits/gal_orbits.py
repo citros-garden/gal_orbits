@@ -82,7 +82,7 @@ class gal_orbits(Node):
 
         self.publish.publish(self.publish_msg)
 
-        # self.get_logger().info(f"Publishing via self.pos_GT_pub = {self.publish_msg.data}")
+        self.get_logger().info(f"Publishing via self.pos_GT_pub = {self.publish_msg.data}")
 
         self.i += 1
         if self.i==self.data_length:
