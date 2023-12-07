@@ -1,13 +1,18 @@
-# Globular Star Cluster Orbit Simulations
+---
+sidebar_position: 30
+sidebar_label: 'Galactic Orbits'
+---
+
+# Galactic Orbits
 
 ## Overview
 
 CITROS offers multiple advantages that can streamline your workflow:
 
-- a seamless pipeline from setting parameters and running simulations to analyzing output results with the [**citros_data_analysis**](https://citros.io/doc/docs_data_analysis/) package, and generating the final report;
-- an opportunity to run multiple simulations simultaneously;
-- a convenient and well-organized data storage system: you can store all your simulation data in the cloud, track their status via the CITROS website, and access this data from different devices;
-- two options for organizing your work: manage and run simulations through a [web interface](https://citros.io/doc/docs/) or use the [command line](https://citros.io/doc/docs_cli).
+- Seamless pipeline from setting parameters and running simulations to analyzing output results with the [**citros_data_analysis**](https://citros.io/doc/docs_data_analysis/) package, and generating the final report;
+- Opportunity to run multiple simulations simultaneously;
+- Convenient and well-organized data storage system: you can store all your simulation data in the cloud, track their status via the CITROS website, and access this data from different devices;
+- Two options for organizing your work: manage and run simulations through a [web interface](https://citros.io/doc/docs/) or use the [command line](https://citros.io/doc/docs_cli).
 
 All these features make CITROS exceptionally useful and user-friendly for projects involving large data sets, diverse simulation scenarios, and complex analyses, which are common in various scientific research fields.
 
@@ -22,29 +27,32 @@ Globular star clusters are gravitationally bound, dense and rich aggregations of
 ## Prerequisites
 To calculate orbits the Python package [GalOrb](https://github.com/ChemelAA/GalOrb-Package) was adopted. It is automatically installed when the docker development container of the project is build. The orbits are calculated in a non-axisymmetric gravitational potential, using an adopted model of the Galaxy with four components: disk, spheroid, dark-matter halo, and a bar. Details on this package, as well as parameters required for simulations, can be found in the article [Globular Clusters: Absolute Proper Motions and Galactic Orbits](https://link.springer.com/article/10.1134/S1990341318020049), [arXiv](https://arxiv.org/pdf/1804.07086.pdf).
 
-If you are working without docker please check other dependencies in Dockerfile in [.devcontainer](https://github.com/citros-garden/gal_orbits/tree/main/.devcontainer) folder.
+1. Please make sure you have all the [necessary softwares](../getting_started/getting_started.md#softwares-to-work-with-citros) to work with CITROS installed on your computer.
+
+2. We strongly recommend that you work with [dockers](..//dockerfile_overview/dockerfile_overview.md). However, If you are working without docker please check other dependencies in Dockerfile in [.devcontainer](https://github.com/citros-garden/gal_orbits/tree/main/.devcontainer) folder.
 
 ## Table of Contents
-- [Globular Star Cluster Orbit Simulations](#globular-star-cluster-orbit-simulations)
-  - [Overview](#overview)
-  - [Prerequisites](#prerequisites)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Workspace Overview](#workspace-overview)
-    - [Input Parameters](#input-parameters)
-    - [Source Code and Launch File](#source-code-and-launch-file)
-    - [Output of the Simulation](#output-of-the-simulation)
-  - [CITROS Initialization](#citros-initialization)
-  - [Scenario](#scenario)
-    - [Parameter Setup](#parameter-setup)
-    - [Simulation Setup](#simulation-setup)
-  - [Running the Scenario Using CITROS](#running-the-scenario-using-citros)
-  - [Results](#results)
+<!-- no toc -->
+1. [Installation](#installation)
+2. [Workspace Overview](#workspace-overview)
+    1. [Input Parameters](#input-parameters)
+    2. [Source Code and Launch File](#source-code-and-launch-file)
+    3. [Output of the Simulation](#output-of-the-simulation)
+3. [CITROS Initialization](#citros-initialization)
+4. [Scenario](#scenario)
+    1. [Parameter Setup](#parameter-setup)
+    2. [Simulation Setup](#simulation-setup)
+5. [Running the Scenario Using CITROS](#running-the-scenario-using-citros)
+6. [Results](#results)
 
 ## Installation
-```bash
-git clone git@github.com:citros-garden/gal_orbits.git
-```
+
+Clone the repository:
+
+ ```bash
+ git clone git@github.com:citros-garden/gal_orbits.git
+ ```
+If you are working with devcontainer, make sure you installed [Visual Studio code](https://code.visualstudio.com/download) and then open the repository in the [VScode Dev Container](../getting_started/getting_started.md#open-project-in-vscode-dev-container).
 
 ## Workspace Overview
 ### Input Parameters
@@ -93,7 +101,9 @@ The simulated data is published to a topic '/gal_orbits'. Each message is an [`F
 
 ## CITROS Initialization
 
-To start working with CITROS you need to install CITROS CLI package, log in, set ssh key and initialize the `.citros` repository. To do this please follow [Getting Started tutorial](https://citros.io/doc/docs_tutorials/getting_started/).
+To start working with CITROS you need to install CITROS CLI package, log in, set ssh key and initialize the `.citros` repository. To do this please follow:
+1. [Install CITROS](../getting_started/getting_started.md#installation)
+2. [Initialize CITROS](/docs_tutorials/getting_started/getting_started.md#initialization)
 
 ## Scenario
 
@@ -148,7 +158,9 @@ In `.citros/simulations/simulation_gal_orbits.json` you can define parameter set
 
 ## Running the Scenario Using CITROS
 
-After adjusting [parameter](#parameter-setup) and [simulation](#simulation-setup) setups, you need to commit and push your changes and also build and push a docker image. To do this please follow the [Getting Started tutorial](https://citros.io/doc/docs_tutorials/getting_started/).
+After adjusting [parameter](#parameter-setup) and [simulation](#simulation-setup) setups, you need to [Upload project to CITROS Server](../getting_started/getting_started.md#upload-to-citros-server)
+
+<!-- commit and push your changes and also build and push a docker image. To do this please follow the [Getting Started tutorial](https://citros.io/doc/docs_tutorials/getting_started/). -->
 
 And now it's time to run the simulation in the cloud! Do the following command to run simulation 5 times in the cloud and assign the results to a "galactic orbits" batch:
 
