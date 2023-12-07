@@ -59,22 +59,22 @@ If you are working with devcontainer, make sure you installed [Visual Studio cod
 
 Parameters of the simulation with their default values are listed in `src/gal_orbits/config/params.yaml` file:
 
-Parameter | Description | Default
+Parameter | Default | Description
 |--|--|--
-publish_freq| frequency of publishing | 10
-rh| heliocentric distance of the object (in kpc) | 0
-lon| galactic longitude of the object (in degrees) | 0
-lat| galactic latitude of the object (in degrees) | 0
-vr| heliocentric radial velocity of the object (in 100 km/s) | 0
-pmra| proper motion in right ascension (in mas/year) | 0
-pmde| proper motion in declination | 0
-t0| starting time of calculation (in units of 10^7 years) | 0
-tf| final time of calculation (in units of 10^7 years) | 10
-M_disc| mass of the disc, in Msun * 10^9, by default, 10^11 Msun | 100
-M_sph| mass of the spherical component of the Galaxy, in Msun * 10^9, by default, 3 * 10^10 Msun | 300
-reverse| if 'True', set backward direction of time, by default, direction is forward | 'False'
-rtol| relative value of the error of the numerical integration scheme, affects the output number of messages | 1e-9
-atol| absolute value  of the error of the numerical integration scheme, affects the output number of messages | 1e-9
+publish_freq | 10| frequency of publishing
+rh | 0| heliocentric distance of the object (in kpc)
+lon | 0| galactic longitude of the object (in degrees)
+lat | 0| galactic latitude of the object (in degrees)
+vr | 0| heliocentric radial velocity of the object (in 100 km/s)
+pmra | 0| proper motion in right ascension (in mas/year)
+pmde | 0| proper motion in declination
+t0 | 0| starting time of calculation (in units of 10^7 years)
+tf | 10| final time of calculation (in units of 10^7 years)
+M_disc | 100| mass of the disc, in Msun * 10^9, by default, 10^11 Msun
+M_sph | 300| mass of the spherical component of the Galaxy, in Msun * 10^9, by default, 3 * 10^10 Msun
+reverse | 'False'| if 'True', set backward direction of time, by default, direction is forward
+rtol | 1e-9| relative value of the error of the numerical integration scheme, affects the output number of messages
+atol | 1e-9| absolute value  of the error of the numerical integration scheme, affects the output number of messages
 
 The table with the parameters for the 115 globular clusters may be found in article, mentioned above: [Globular Clusters: Absolute Proper Motions and Galactic Orbits](https://link.springer.com/article/10.1134/S1990341318020049), [arXiv](https://arxiv.org/pdf/1804.07086.pdf).
 
