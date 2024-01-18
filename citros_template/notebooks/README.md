@@ -4,7 +4,7 @@ In each repository data obtained from simulations are stored in *batches*.
 In the current repository 'gal_orbits', batch 'galactic orbits_1' contains the simulation results for the orbits of globular star cluster **NGC 6316**, 
 calculated for 5 cases of slightly different masses of the Galaxy disk.
 
-These notebooks aim to demonstrate the capabilities of the **citros_data_analysis package** and how it can be applied to real data.
+These notebooks aim to demonstrate the capabilities of the **Data Analysis package** and how it can be applied to real data.
 
 ## Batch format
 
