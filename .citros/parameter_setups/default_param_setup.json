@@ -1,0 +1,27 @@
+{
+    "packages": {
+        "gal_orbits": {
+            "gal_orbits": {
+                "ros__parameters": {
+                    "publish_freq": 10.0,
+                    "rh": 11.5,
+                    "lon": 357.18,
+                    "lat": 5.76,
+                    "vr": 0.715,
+                    "pmra": -4.52,
+                    "pmde": -3.70,
+                    "t0": 0.0,
+                    "tf": 20.0,
+                    "M_disc": {
+                        "function": "my_func.py:return_next_value",
+                        "args": [[95.0, 97.5, 100.0, 102.5, 105.0]]
+                    },
+                    "M_sph": 30.0,
+                    "reverse": "False",
+                    "rtol": 1e-8,
+                    "atol": 1e-8
+                }
+            }
+        }
+    }
+}

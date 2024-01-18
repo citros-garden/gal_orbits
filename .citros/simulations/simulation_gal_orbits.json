@@ -1,0 +1,14 @@
+{
+    "CPU": 2,
+    "GPU": 0,
+    "MEM": 265,
+    "description": "Default simulation. Change the values according to your needs.",
+    "id": "0f31d0ec-2430-4b0c-8082-95f95b041905",
+    "launch": {
+        "file": "gal_orbits.launch.py",
+        "package": "gal_orbits"
+    },
+    "parameter_setup": "default_param_setup.json",
+    "storage_type": "MCAP",
+    "timeout": 300
+}

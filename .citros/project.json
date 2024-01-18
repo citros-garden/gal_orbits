@@ -1,0 +1,123 @@
+{
+    "citros_cli_version": "0.2.16",
+    "cover": "",
+    "description": "",
+    "git": "",
+    "is_active": true,
+    "launches": [],
+    "packages": [
+        {
+            "cover": "",
+            "description": "TODO: Package description",
+            "git": "",
+            "launches": [
+                {
+                    "description": "",
+                    "name": "gal_orbits.launch.py",
+                    "path": "src/gal_orbits/launch/gal_orbits.launch.py"
+                }
+            ],
+            "maintainer": "ros",
+            "maintainer_email": "yalyalievalidia@gmail.com",
+            "name": "gal_orbits",
+            "nodes": [
+                {
+                    "entry_point": "gal_orbits.gal_orbits:main",
+                    "name": "gal_orbits",
+                    "parameters": [
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "publish_freq",
+                            "parameterType": "float",
+                            "value": 10.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "rh",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "lon",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "lat",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "vr",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "pmra",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "pmde",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "t0",
+                            "parameterType": "float",
+                            "value": 0.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "tf",
+                            "parameterType": "float",
+                            "value": 10.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "M_disc",
+                            "parameterType": "float",
+                            "value": 100.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "M_sph",
+                            "parameterType": "float",
+                            "value": 30.0
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "reverse",
+                            "parameterType": "str",
+                            "value": "False"
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "rtol",
+                            "parameterType": "str",
+                            "value": "1e-9"
+                        },
+                        {
+                            "description": "Parameter loaded from config.yaml",
+                            "name": "atol",
+                            "parameterType": "str",
+                            "value": "1e-9"
+                        }
+                    ],
+                    "path": "src/gal_orbits/gal_orbits/gal_orbits.py"
+                }
+            ],
+            "package_xml": "src/gal_orbits/package.xml",
+            "parameters": {},
+            "path": "src/gal_orbits",
+            "setup_py": "src/gal_orbits/setup.py"
+        }
+    ],
+    "tags": []
+}
