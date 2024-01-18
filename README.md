@@ -170,17 +170,17 @@ citros run -n "galactic orbits" -m "first run" -c 5 -r
 
 ## Results
 
-Now when your simulation is complete, you're ready to check the results! Explore the notebooks in [`notebooks`](https://citros.io/gal_orbits/tree/main/notebooks). There, you'll find examples prepared using the [citros_data_analysis package](https://citros.io/doc/docs_data_analysis) on how to query, analyze and present results. Feel free to use them or create your own!
+Now when your simulation is complete, you're ready to check the results! Explore the notebooks in [`notebooks`](citros_template/notebooks/). There, you'll find examples prepared using the **citros package** on how to query, analyze and present results. Feel free to use them or create your own!
 
-Let's take a look on the results of the following [notebook](https://citros.io/gal_orbits/blob/main/notebooks/Disk%20mass%20variation.ipynb).
+Let's take a look on the results of the following [notebook](citros_template/notebooks/Disk%20mass%20variation.ipynb).
 We made [simulations](#scenario) of the orbits of the globular cluster NGC 6316 for 5 different masses of the Galactic disk `M_disk`. To get some qualitative idea on how the mass of the Galactic disk affect the orbits, let's first display the projections of the simulated orbits onto the Galactic disk:
 
 ```python
-from citros_data_analysis import data_access as da
-citros = da.CitrosDB()
+from citros import CitrosDB
+citros = CitrosDB(simulation = 'simulation_gal_orbits', batch = 'galactic_orbits')
 
-# query data using citros_data_analysis package, get pandas.DataFrame
-F = citros.batch('galactic orbits').topic('/gal_orbits').data(['data.data[9]', 'data.data[10]'])
+# query data using citros, get pandas.DataFrame
+F = citros.topic('/gal_orbits').data(['data.data[9]', 'data.data[10]'])
 
 # change, calculate, explore your data - take full advantage of working with pandas python package
 F.rename({'data.data[9]': 'xg', 'data.data[10]': 'yg'}, axis = 1, inplace = True)
@@ -198,7 +198,7 @@ ax.plot(F['xg'][F['sid']==0].iloc[0], F['yg'][F['sid']==0].iloc[0], 'bo')
 
 *Projection of the globular Galactic cluster NGC 6316's orbits onto the Galactic plane over the next 200 million years. Galactocentric coordinates 'xg' and 'yg' were derived from orbit simulations in a non-axisymmetric gravitational potential, considering five scenarios with slightly varying Galaxy disk masses (95, 97.5, 100, 102.5 and 105 billion solar masses). The yellow star represents the Sun, located at coordinates (0, 0). The simulation starts at the point marked by a blue circle.*
 
-Let's visualize the scatter of coordinates at the end of the simulation. The final point of each simulation run corresponds to t = 200 Myr. Using `pandas`, we can easily select coordinates corresponding to the maximum time value. Then, using `citros_data_analysis`, we can display these coordinates along with the mean and standard deviation ellipses:
+Let's visualize the scatter of coordinates at the end of the simulation. The final point of each simulation run corresponds to t = 200 Myr. Using `pandas`, we can easily select coordinates corresponding to the maximum time value. Then, using `citros`, we can display these coordinates along with the mean and standard deviation ellipses:
 ```python
 # for each simulation run select the last point (it corresponds to the maximum t)
 f = F.loc[F.groupby('sid')['t'].idxmax()]
@@ -223,12 +223,12 @@ F['d'] = np.sqrt(F['R']**2 + F['z']**2)
 
 To calculate the average distance from the Galactic center to the cluster, a simple mean of all data points from all simulations is insufficient due to unequal time intervals between points. Instead, we should first calculate the mean distance for each time point across simulations on an equidistant time scale, and then compute the overall mean distance.
 
-Although the time range for all simulations is the same (0-20 Myr), the number of points and their corresponding time moments vary. Therefore, we need to establish a correspondence between the different simulations. This can be achieved using the `citros_data_analysis.error_analysis package`. To align the data from different simulations, we can divide the time into a certain number of intervals and assign indexes to these intervals. For each interval, we then calculate the mean distance for each simulation. This approach yields a common set of time values for all simulations, along with a corresponding set of distance values determined for these time points.
+Although the time range for all simulations is the same (0-20 Myr), the number of points and their corresponding time moments vary. Therefore, we need to establish a correspondence between the different simulations. This can be achieved using the `citros`. To align the data from different simulations, we can divide the time into a certain number of intervals and assign indexes to these intervals. For each interval, we then calculate the mean distance for each simulation. This approach yields a common set of time values for all simulations, along with a corresponding set of distance values determined for these time points.
 
 ```python
-from citros_data_analysis import error_analysis as analysis
+from citros import CitrosData
 
-dataset = analysis.CitrosData(F, data_label=['d'], units = 'kpc')
+dataset = CitrosData(F, data_label=['d'], units = 'kpc')
 db = dataset.bin_data(n_bins = 50, param_label = 't')
 
 # calculate statistics among different simulations
@@ -238,12 +238,12 @@ stat = db.get_statistics(return_format='citrosStat')
 d_mean = stat.mean.mean()
 ```
 
-Using the `citros_data_analysis.validation` package, we can check whether the standard deviation is not very significant and is less than 15 percent of the average distance from the Galactic center:
+Using the methods of the `Validation` class, we can check whether the standard deviation is not very significant and is less than 15 percent of the average distance from the Galactic center:
 
 ```python
-from citros_data_analysis import validation as va
+from citros import Validation
 
-V = va.Validation(F, data_label = 'd', param_label = 't', method = 'bin', num = 50, units = 'kpc')
+V = Validation(F, data_label = 'd', param_label = 't', method = 'bin', num = 50, units = 'kpc')
 log, table, fig = V.std_test(limits = d_mean*0.15, n_std = 1, nan_passed = True, 
                              std_area = True, std_color = 'b')
 ```
